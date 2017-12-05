@@ -5,11 +5,18 @@ with open('input.txt') as f:
 # you may also want to remove whitespace characters like `\n` at the end of each line
 content = [x.strip() for x in content]
 
-def hasDuplicates(mylist):
-    return [k for k,v in Counter(mylist).items() if v>1]
+def hasAnagrams(mylist):
+    sortedList = mylist 
+    for j,i in enumerate(sortedList):
+        i = list(i)
+        i.sort()
+        sortedList[j] = ''.join(i)
+    print(sortedList)
+    return [k for k,v in Counter(sortedList).items() if v>1]
+    #return True
 
 def validate(x):
-    if hasDuplicates(x.split(' ')):
+    if hasAnagrams(list(x.split(' '))):
         return False
     return True
 
