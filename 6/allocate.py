@@ -25,4 +25,5 @@ while '-'.join(map(str,state)) not in seen:
     state, blocks = realloc(state, index, blocks)
     count += 1
 print(state)
+print(seen.index('-'.join(map(str,state))))
 print("Repeat after {} passes!".format(count-1))
