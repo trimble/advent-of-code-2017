@@ -1,23 +1,26 @@
 import re
-from collections import defaultdict
+from anytree import Node, RenderTree, find, LevelOrderIter
 
-def tree(): return defaultdict(tree)
-
-towers = tree()
+def weightof(tree):
+    return sum([node.weight for node in LevelOrderIter(tree)])
 
 with open('input.txt') as f:
     content = f.readlines()
 content = [x.strip() for x in content]
-notBottom = []
-for index, item in enumerate(content):
-    x = re.match(r'(.*) (\(.*\))(.*)', item)
-    content[index] = [x.group(1), x.group(2), x.group(3)]
-    if x.group(3):
-        notBottom.append(x.group(3)[4:].split(', '))
 
-notBottom = [item for sublist in notBottom for item in sublist]
+root = Node('root', weight = 0)
 for item in content:
-    if item[0] not in notBottom:
-        print(f"Bottom candidate: {item[0]}")
-        towers[item[0]]
+    x = re.match(r'(.*) \((.*)\)(.*)', item)
+    y = Node(x.group(1), parent = root, weight = int(x.group(2)))
 
+for item in content:
+    x = re.match(r'(.*) \((.*)\)(.*)', item)
+    parent = find(root, lambda node: node.name == x.group(1))
+    if x.group(3):
+        for child in x.group(3)[4:].split(', '):
+            child = find(root, lambda node: node.name == child) 
+            child.parent = parent
+
+#print([{node.name, weightof(node)} for node in LevelOrderIter(root)])
+off = find(root, lambda node: node.name == 'tulwp')
+print([{node.name, weightof(node)} for node in LevelOrderIter(off)])
