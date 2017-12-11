@@ -34,3 +34,4 @@ for i in list(range(16)):
         temp ^= state[16*i+j] 
     dense.append(hex(temp))
 print(dense)
+print("".join([i[2:] for i in dense]))
