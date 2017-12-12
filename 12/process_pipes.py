@@ -23,39 +23,21 @@ print("number of nodes in 0's group = {}".format(count))
 print("number of nodes *not* in 0's group = {}".format(len(outliers)))
 print("first outlier = {}".format(outliers[0]))
 
-outliers2=[]
-count = 0
-for i in outliers:
-    if graph.find_path(str(i), '1'):
-        count += 1
-    else:
-        outliers2.append(str(i))
+numGroups = 1
+while len(outliers):
+    outliers2=[]
+    count = 0
+    for i in outliers:
+        if graph.find_path(str(i), outliers[0]):
+            count += 1
+        else:
+            outliers2.append(str(i))
+    
+    print("number of nodes in {}'s group = {}".format(outliers[0], count))
+    if len(outliers2):
+        print("number of nodes *not* in {}'s group = {}".format(outliers[0], len(outliers2)))
+        print("first outlier = {}".format(outliers2[0]))
+    outliers = outliers2
+    numGroups += 1
 
-print("number of nodes in 1's group = {}".format(count))
-print("number of nodes *not* in 1's group = {}".format(len(outliers2)))
-print("first outlier = {}".format(outliers2[0]))
-
-outliers3=[]
-count = 0
-for i in outliers2:
-    if graph.find_path(str(i), '2'):
-        count += 1
-    else:
-        outliers3.append(str(i))
-
-print("number of nodes in 2's group = {}".format(count))
-print("number of nodes *not* in 2's group = {}".format(len(outliers3)))
-print("first outlier = {}".format(outliers3[0]))
-
-outliers4=[]
-count = 0
-for i in outliers3:
-    if graph.find_path(str(i), '4'):
-        count += 1
-    else:
-        outliers4.append(str(i))
-
-print("number of nodes in 4's group = {}".format(count))
-print("number of nodes *not* in 4's group = {}".format(len(outliers4)))
-print("first outlier = {}".format(outliers4[0]))
-
+print("there are {} groups".format(numGroups))
