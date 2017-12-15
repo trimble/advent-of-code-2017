@@ -1,4 +1,4 @@
-input = ["amgozmfv-{}".format(i) for i in range(128)]
+input = ["flqrgnkx-{}".format(i) for i in range(128)]
 
 for x in list(range(128)):
     input[x] = [ord(i) for i in input[x]]
@@ -38,16 +38,14 @@ for x in list(range(128)):
 
 output = []
 for y in list(range(128)):
-    foo = ["{0:b}".format(i) for i in hashed[y]]
+    foo = ["{:08b}".format(i) for i in hashed[y]]
+    print(foo)
     output.append("".join(foo))
-
-print(output)
-lens = [len(i) for i in output]
-print lens
 
 aa = 0
 for i in output:
     aa += i.count('1')
 
-print(len(output))
 print(aa)
+for i in output:
+    print(i)
