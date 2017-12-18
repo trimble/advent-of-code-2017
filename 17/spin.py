@@ -1,4 +1,3 @@
-state = [0]
 input = 337
 current = 0
 
