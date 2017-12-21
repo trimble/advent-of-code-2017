@@ -3,7 +3,7 @@ import re
 def distance(position):
     return abs(position[0]) + abs(position[1]) + abs(position[2])
 
-with open('test.txt') as f:
+with open('input.txt') as f:
     content = f.readlines()
 content = [x.strip() for x in content]
 
@@ -21,7 +21,7 @@ for name, line in enumerate(content):
       'distance': distance(position),
     }
 
-for j in range(3):
+for j in range(10000):
     positions = {}
     for k, v in particles.items():
         v['velocity'][0] += v['acceleration'][0]
@@ -33,4 +33,8 @@ for j in range(3):
         v['distance'] = distance(v['position'])
         positions.setdefault(str(v['position']), []).append(k)
 
-print(particles)
+    for k, v in positions.items():
+        if len(v) > 1:
+            for i in v:
+                particles.pop(i)
+print(len(positions))
